@@ -2,7 +2,9 @@ package ru.ifmo.fitp.labtestermaster.service;
 
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.ifmo.fitp.labtestermaster.dao.task.*;
 import ru.ifmo.fitp.labtestermaster.domain.report.SubmitReport;
+import ru.ifmo.fitp.labtestermaster.repository.SubmitReportRepository;
 
 @Service
 public class SubmitService {
@@ -18,6 +21,15 @@ public class SubmitService {
 
     @Value("${worker.url}")
     private String workerUrl;
+
+    final SubmitReportRepository submitReportRepository;
+    final RestTemplate restTemplate;
+
+    @Autowired
+    public SubmitService(SubmitReportRepository submitReportRepository, RestTemplateBuilder restTemplateBuilder) {
+        this.submitReportRepository = submitReportRepository;
+        this.restTemplate = restTemplateBuilder.build();
+    }
 
     public SubmitReport submit(String gitUrl) {
 
@@ -43,13 +55,14 @@ public class SubmitService {
     private SubmitReport makeRequest(TasksDAO tasks) {
         LOG.info("Make request to worker");
 
-        RestTemplate restTemplate = new RestTemplate();
         HttpEntity<TasksDAO> request = new HttpEntity<>(tasks);
         ResponseEntity<SubmitReport> response = restTemplate.exchange(
                 workerUrl, HttpMethod.POST, request, SubmitReport.class);
 
         LOG.info("Response from worker: status code " + response.getStatusCode());
 
-        return response.getBody();
+        LOG.info("Save submit report to database");
+
+        return submitReportRepository.save(response.getBody());
     }
 }

@@ -33,7 +33,16 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+
     compile('com.fasterxml.jackson.core:jackson-databind:2.8.7')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-jdbc')
+    compile('org.hibernate:hibernate-core:5.2.10.Final')
+
+    compile group: 'org.jetbrains', name: 'annotations', version: '13.0'
+
+    runtime('com.h2database:h2')
+    runtime('org.postgresql:postgresql')
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

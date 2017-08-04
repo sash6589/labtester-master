@@ -1,7 +1,20 @@
 package ru.ifmo.fitp.labtestermaster.domain.report;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Date;
+
 @SuppressWarnings("unused")
+@Entity
 public class SubmitReport {
+
+    @Id
+    @GeneratedValue(strategy =  GenerationType.AUTO)
+    private Long id;
+    private Date date;
+
     private String testStdout;
     private String testStderr;
     private String codestyleStdout;
@@ -43,5 +56,13 @@ public class SubmitReport {
 
     public void setTestStderr(String testStderr) {
         this.testStderr = testStderr;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
