@@ -1,9 +1,6 @@
 package ru.ifmo.fitp.labtestermaster.domain.report;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @SuppressWarnings("unused")
@@ -15,9 +12,16 @@ public class SubmitReport {
     private Long id;
     private Date date;
 
+    @Column(columnDefinition = "TEXT")
     private String testStdout;
+
+    @Column(columnDefinition = "TEXT")
     private String testStderr;
+
+    @Column(columnDefinition = "TEXT")
     private String codestyleStdout;
+
+    @Column(columnDefinition = "TEXT")
     private String codestyleStderr;
 
     public SubmitReport() {

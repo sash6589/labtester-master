@@ -22,20 +22,22 @@ public class SubmitService {
     @Value("${worker.url}")
     private String workerUrl;
 
-    final SubmitReportRepository submitReportRepository;
+    final AsyncDBService asyncDBService;
     final RestTemplate restTemplate;
 
     @Autowired
-    public SubmitService(SubmitReportRepository submitReportRepository, RestTemplateBuilder restTemplateBuilder) {
-        this.submitReportRepository = submitReportRepository;
+    public SubmitService(AsyncDBService asyncDBService, RestTemplateBuilder restTemplateBuilder) {
+        this.asyncDBService = asyncDBService;
         this.restTemplate = restTemplateBuilder.build();
     }
 
     public SubmitReport submit(String gitUrl) {
 
         TasksDAO tasks = getTaskPipeline(gitUrl);
+        SubmitReport report = makeRequest(tasks);
+        asyncDBService.saveSubmitReport(report);
 
-        return makeRequest(tasks);
+        return report;
     }
 
     @NotNull
@@ -59,10 +61,8 @@ public class SubmitService {
         ResponseEntity<SubmitReport> response = restTemplate.exchange(
                 workerUrl, HttpMethod.POST, request, SubmitReport.class);
 
-        LOG.info("Response from worker: status code " + response.getStatusCode());
+        LOG.info("Response from worker: status code");
 
-        LOG.info("Save submit report to database");
-
-        return submitReportRepository.save(response.getBody());
+        return response.getBody();
     }
 }
