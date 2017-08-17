@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.ifmo.fitp.labtestermaster.dao.task.*;
 import ru.ifmo.fitp.labtestermaster.domain.report.SubmitReport;
-import ru.ifmo.fitp.labtestermaster.repository.SubmitReportRepository;
 
 @Service
 public class SubmitService {
