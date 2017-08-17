@@ -4,10 +4,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import ru.ifmo.fitp.labtestermaster.domain.report.SubmitReport;
 import ru.ifmo.fitp.labtestermaster.service.SubmitService;
 
@@ -30,5 +28,11 @@ public class SubmitController {
         SubmitReport submitReport = submitService.submit(gitUrl);
 
         return new ResponseEntity<>(submitReport, HttpStatus.OK);
+    }
+
+    @ResponseStatus(value=HttpStatus.BAD_REQUEST, reason = "Failed to check solution")
+    @ExceptionHandler(HttpClientErrorException.class)
+    public void badRequest() {
+
     }
 }
