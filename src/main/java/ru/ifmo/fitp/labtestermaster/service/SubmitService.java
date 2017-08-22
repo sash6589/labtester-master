@@ -48,8 +48,9 @@ public class SubmitService {
         return  new TasksDAO(new AbstractTaskDAO[]{
                 new PrepareEnvironmentDAO(),
                 new GitCloneSolutionDAO(gitUrl),
-                new MoveToDAO(),
-                new GitCloneTestsDAO(TESTS_URL)
+                new SolutionMoveToDAO(),
+                new GitCloneTestsDAO(TESTS_URL),
+                new TestsMoveToDAO()
         });
 
 //        return  new TasksDAO(new AbstractTaskDAO[]{
