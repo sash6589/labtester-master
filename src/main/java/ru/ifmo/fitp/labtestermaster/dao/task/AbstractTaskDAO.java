@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = GitCloneDAO.class, name = "gitClone"),
+        @JsonSubTypes.Type(value = GitCloneSolutionDAO.class, name = "gitCloneSolution"),
+        @JsonSubTypes.Type(value = GitCloneTestsDAO.class, name = "gitCloneTests"),
         @JsonSubTypes.Type(value = CleanEnvironmentDAO.class, name = "cleanEnvironment"),
         @JsonSubTypes.Type(value = MoveToDAO.class, name = "moveTo"),
         @JsonSubTypes.Type(value = PrepareEnvironmentDAO.class, name = "prepareEnvironment"),
