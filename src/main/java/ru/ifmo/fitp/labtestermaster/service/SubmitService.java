@@ -50,17 +50,11 @@ public class SubmitService {
                 new GitCloneSolutionDAO(gitUrl),
                 new SolutionMoveToDAO(),
                 new GitCloneTestsDAO(TESTS_URL),
-                new TestsMoveToDAO()
+                new TestsMoveToDAO(),
+                new CheckCodestyleDAO("pep8 run/main.py"),
+                new RunTestsDAO("python -m tests.tests"),
+                new CleanEnvironmentDAO()
         });
-
-//        return  new TasksDAO(new AbstractTaskDAO[]{
-//                new PrepareEnvironmentDAO(),
-//                new GitCloneDAO(gitUrl),
-//                new MoveToDAO(),
-//                new CheckCodestyleDAO("pep8 run/main.py"),
-//                new RunTestsDAO("python -m test.tests"),
-//                new CleanEnvironmentDAO()
-//        });
     }
 
     private SubmitReport makeRequest(TasksDAO tasks) {
