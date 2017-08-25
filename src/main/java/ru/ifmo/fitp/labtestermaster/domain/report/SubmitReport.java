@@ -24,6 +24,9 @@ public class SubmitReport {
     @Column(columnDefinition = "TEXT")
     private String codestyleStderr;
 
+    @Column(columnDefinition = "TEXT")
+    private String fileTestsResult;
+
     public SubmitReport() {
 
     }
@@ -68,5 +71,13 @@ public class SubmitReport {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getFileTestsResult() {
+        return fileTestsResult;
+    }
+
+    public void setFileTestsResult(String fileTestsResult) {
+        this.fileTestsResult = fileTestsResult;
     }
 }

@@ -19,6 +19,7 @@ public class SubmitService {
     private static final Logger LOG = Logger.getLogger(SubmitService.class);
 
     private static final String TESTS_URL = "https://github.com/sash6589/test";
+    private static final String FILE_TESTS_URL = "https://github.com/sash6589/file-tests";
 
     @Value("${worker.url}")
     private String workerUrl;
@@ -49,12 +50,23 @@ public class SubmitService {
                 new PrepareEnvironmentDAO(),
                 new GitCloneSolutionDAO(gitUrl),
                 new SolutionMoveToDAO(),
-                new GitCloneTestsDAO(TESTS_URL),
-                new TestsMoveToDAO(),
+                new GitCloneFileTestsDAO(FILE_TESTS_URL),
+                new FileTestsMoveToDAO(),
+                new RunFileTestsDAO("python main.py"),
                 new CheckCodestyleDAO("pep8 run/main.py"),
-                new RunTestsDAO("python -m tests.tests"),
                 new CleanEnvironmentDAO()
         });
+
+//        return  new TasksDAO(new AbstractTaskDAO[]{
+//                new PrepareEnvironmentDAO(),
+//                new GitCloneSolutionDAO(gitUrl),
+//                new SolutionMoveToDAO(),
+//                new GitCloneTestsDAO(TESTS_URL),
+//                new TestsMoveToDAO(),
+//                new CheckCodestyleDAO("pep8 run/main.py"),
+//                new RunTestsDAO("python -m tests.tests"),
+//                new CleanEnvironmentDAO()
+//        });
     }
 
     private SubmitReport makeRequest(TasksDAO tasks) {
