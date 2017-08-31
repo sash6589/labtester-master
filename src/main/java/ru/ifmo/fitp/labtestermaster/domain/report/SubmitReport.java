@@ -28,6 +28,8 @@ public class SubmitReport {
     @Column(columnDefinition = "TEXT")
     private String fileTestsResult;
 
+    private String problemName;
+
     public SubmitReport() {
 
     }
@@ -80,5 +82,13 @@ public class SubmitReport {
 
     public void setFileTestsResult(String fileTestsResult) {
         this.fileTestsResult = fileTestsResult;
+    }
+
+    public String getProblemName() {
+        return problemName;
+    }
+
+    public void setProblemName(String problemName) {
+        this.problemName = problemName;
     }
 }

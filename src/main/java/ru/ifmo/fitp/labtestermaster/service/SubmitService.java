@@ -1,7 +1,6 @@
 package ru.ifmo.fitp.labtestermaster.service;
 
 import org.apache.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -40,37 +39,13 @@ public class SubmitService {
     public SubmitReport submit(String problemName, String gitUrl) {
 
         TasksDAO tasks = taskFactory.getTaskPipeline(problemName, gitUrl);
+
         SubmitReport report = makeRequest(tasks);
+        report.setProblemName(problemName);
+
         asyncDBService.saveSubmitReport(report);
 
         return report;
-    }
-
-    @NotNull
-    private TasksDAO getTaskPipeline(String gitUrl) {
-        LOG.info("Generate task pipeline");
-
-        return  new TasksDAO(new AbstractTaskDAO[]{
-                new PrepareEnvironmentDAO(),
-                new GitCloneSolutionDAO(gitUrl),
-                new SolutionMoveToDAO(),
-                new GitCloneFileTestsDAO(FILE_TESTS_URL),
-                new FileTestsMoveToDAO(),
-                new RunFileTestsDAO("python main.py"),
-                new CheckCodestyleDAO("pep8 run/main.py"),
-                new CleanEnvironmentDAO()
-        });
-
-//        return  new TasksDAO(new AbstractTaskDAO[]{
-//                new PrepareEnvironmentDAO(),
-//                new GitCloneSolutionDAO(gitUrl),
-//                new SolutionMoveToDAO(),
-//                new GitCloneTestsDAO(TESTS_URL),
-//                new TestsMoveToDAO(),
-//                new CheckCodestyleDAO("pep8 run/main.py"),
-//                new RunTestsDAO("python -m tests.tests"),
-//                new CleanEnvironmentDAO()
-//        });
     }
 
     private SubmitReport makeRequest(TasksDAO tasks) {
