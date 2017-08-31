@@ -9,6 +9,7 @@ public class Problem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true)
     private String name;
 
     private boolean checkCodestyle;

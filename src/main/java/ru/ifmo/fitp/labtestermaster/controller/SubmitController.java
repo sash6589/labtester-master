@@ -22,10 +22,10 @@ public class SubmitController {
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.GET)
-    public ResponseEntity<SubmitReport> submit(@RequestParam String gitUrl) {
-        LOG.info("New submit request");
+    public ResponseEntity<SubmitReport> submit(@RequestParam String problemName, @RequestParam String gitUrl) {
+        LOG.info(String.format("New problem %s submit request", problemName));
 
-        SubmitReport submitReport = submitService.submit(gitUrl);
+        SubmitReport submitReport = submitService.submit(problemName, gitUrl);
 
         return new ResponseEntity<>(submitReport, HttpStatus.OK);
     }

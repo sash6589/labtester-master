@@ -5,7 +5,7 @@ public class TasksDAO {
     private AbstractTaskDAO[] tasks;
 
     public TasksDAO() {
-
+        this.tasks = new AbstractTaskDAO[0];
     }
 
     public TasksDAO(AbstractTaskDAO[] tasks) {

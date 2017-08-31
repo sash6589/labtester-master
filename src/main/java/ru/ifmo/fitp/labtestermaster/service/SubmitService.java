@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.ifmo.fitp.labtestermaster.dao.task.*;
 import ru.ifmo.fitp.labtestermaster.domain.report.SubmitReport;
+import ru.ifmo.fitp.labtestermaster.domain.task.TaskFactory;
 
 @Service
 public class SubmitService {
@@ -24,18 +25,21 @@ public class SubmitService {
     @Value("${worker.url}")
     private String workerUrl;
 
-    final AsyncDBService asyncDBService;
-    final RestTemplate restTemplate;
+    private final AsyncDBService asyncDBService;
+    private final RestTemplate restTemplate;
+    private final TaskFactory taskFactory;
 
     @Autowired
-    public SubmitService(AsyncDBService asyncDBService, RestTemplateBuilder restTemplateBuilder) {
+    public SubmitService(AsyncDBService asyncDBService, RestTemplateBuilder restTemplateBuilder,
+                         TaskFactory taskFactory) {
         this.asyncDBService = asyncDBService;
         this.restTemplate = restTemplateBuilder.build();
+        this.taskFactory = taskFactory;
     }
 
-    public SubmitReport submit(String gitUrl) {
+    public SubmitReport submit(String problemName, String gitUrl) {
 
-        TasksDAO tasks = getTaskPipeline(gitUrl);
+        TasksDAO tasks = taskFactory.getTaskPipeline(problemName, gitUrl);
         SubmitReport report = makeRequest(tasks);
         asyncDBService.saveSubmitReport(report);
 
