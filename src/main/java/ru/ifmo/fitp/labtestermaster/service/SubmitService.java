@@ -55,7 +55,7 @@ public class SubmitService {
         ResponseEntity<SubmitReport> response = restTemplate.exchange(
                 workerUrl, HttpMethod.POST, request, SubmitReport.class);
 
-        LOG.info("Response from worker: status code");
+        LOG.info("Response from worker: status code " + response.getStatusCodeValue());
 
         return response.getBody();
     }

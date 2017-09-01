@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import ru.ifmo.fitp.labtestermaster.domain.problem.Problem;
 import ru.ifmo.fitp.labtestermaster.repository.ProblemRepository;
 
 import java.util.Arrays;
+import java.util.List;
 
 @RestController
 public class ProblemController {
@@ -31,5 +33,14 @@ public class ProblemController {
         problemRepository.save(Arrays.asList(problems));
 
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/problems")
+    public ResponseEntity<List<String>> problems() {
+        LOG.info("New request for getting all names of problems");
+
+        List<String> names = problemRepository.findNames();
+
+        return new ResponseEntity<>(names, HttpStatus.OK);
     }
 }
