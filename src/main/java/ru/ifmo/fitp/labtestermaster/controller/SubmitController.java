@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
+import ru.ifmo.fitp.labtestermaster.dao.solution.SolutionDAO;
 import ru.ifmo.fitp.labtestermaster.domain.report.SubmitReport;
 import ru.ifmo.fitp.labtestermaster.service.SubmitService;
 
@@ -21,11 +22,20 @@ public class SubmitController {
         this.submitService = submitService;
     }
 
-    @RequestMapping(value = "/submit", method = RequestMethod.GET)
+    @GetMapping(value = "/submit")
     public ResponseEntity<SubmitReport> submit(@RequestParam String problemName, @RequestParam String gitUrl) {
-        LOG.info(String.format("New problem %s submit request", problemName));
+        LOG.info(String.format("New problem %s submit url request", problemName));
 
         SubmitReport submitReport = submitService.submit(problemName, gitUrl);
+
+        return new ResponseEntity<>(submitReport, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/submit")
+    public ResponseEntity<SubmitReport> submit(@RequestBody SolutionDAO solutionDAO) {
+        LOG.info(String.format("New problem %s submit program request", solutionDAO.getProblemName()));
+
+        SubmitReport submitReport = submitService.submit(solutionDAO);
 
         return new ResponseEntity<>(submitReport, HttpStatus.OK);
     }

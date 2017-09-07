@@ -13,10 +13,12 @@ public class Tasks {
         this.tasks = new ArrayList<>();
     }
 
-    public void addBeginCommonTasks(String gitUrl) {
-        tasks.add(new PrepareEnvironmentDAO());
-        tasks.add(new GitCloneSolutionDAO(gitUrl));
-        tasks.add(new SolutionMoveToDAO());
+    public void addBeginCommonTasksWithGit(String gitUrl) {
+        addBeginCommonTasks(new GitCloneSolutionDAO(gitUrl));
+    }
+
+    public void addBeginCommonTasksWithProgram(String program) {
+        addBeginCommonTasks(new SaveSolutionDAO(program));
     }
 
     public void addCheckCodestyleTask(String command) {
@@ -42,5 +44,11 @@ public class Tasks {
     public TasksDAO toTasksDAO() {
         AbstractTaskDAO[] tasksDAO = new AbstractTaskDAO[tasks.size()];
         return new TasksDAO(tasks.toArray(tasksDAO));
+    }
+
+    private void addBeginCommonTasks(AbstractTaskDAO task) {
+        tasks.add(new PrepareEnvironmentDAO());
+        tasks.add(task);
+        tasks.add(new SolutionMoveToDAO());
     }
 }

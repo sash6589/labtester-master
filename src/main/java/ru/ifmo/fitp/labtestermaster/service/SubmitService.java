@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import ru.ifmo.fitp.labtestermaster.dao.solution.SolutionDAO;
 import ru.ifmo.fitp.labtestermaster.dao.task.*;
 import ru.ifmo.fitp.labtestermaster.domain.report.SubmitReport;
 import ru.ifmo.fitp.labtestermaster.domain.task.TaskFactory;
@@ -17,9 +18,6 @@ import ru.ifmo.fitp.labtestermaster.domain.task.TaskFactory;
 public class SubmitService {
 
     private static final Logger LOG = Logger.getLogger(SubmitService.class);
-
-    private static final String TESTS_URL = "https://github.com/sash6589/test";
-    private static final String FILE_TESTS_URL = "https://github.com/sash6589/file-tests";
 
     @Value("${worker.url}")
     private String workerUrl;
@@ -37,9 +35,18 @@ public class SubmitService {
     }
 
     public SubmitReport submit(String problemName, String gitUrl) {
-
         TasksDAO tasks = taskFactory.getTaskPipeline(problemName, gitUrl);
 
+        return submit(tasks, problemName);
+    }
+
+    public SubmitReport submit(SolutionDAO solutionDAO) {
+        TasksDAO tasks = taskFactory.getTaskPipeline(solutionDAO);
+
+        return submit(tasks, solutionDAO.getProblemName());
+    }
+
+    private SubmitReport submit(TasksDAO tasks, String problemName) {
         SubmitReport report = makeRequest(tasks);
         report.setProblemName(problemName);
 

@@ -16,7 +16,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = PrepareEnvironmentDAO.class, name = "prepareEnvironment"),
         @JsonSubTypes.Type(value = RunTestsDAO.class, name = "runTests"),
         @JsonSubTypes.Type(value = RunFileTestsDAO.class, name = "runFileTests"),
-        @JsonSubTypes.Type(value = CheckCodestyleDAO.class, name = "checkCodestyle")
+        @JsonSubTypes.Type(value = CheckCodestyleDAO.class, name = "checkCodestyle"),
+        @JsonSubTypes.Type(value = SaveSolutionDAO.class, name = "saveSolution")
 })
 public abstract class AbstractTaskDAO {
 
