@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 import java.util.concurrent.Executor;
 
@@ -23,5 +24,14 @@ public class LabtesterMasterMain {
         executor.setQueueCapacity(500);
         executor.initialize();
         return executor;
+    }
+
+    @Bean
+    public CommonsRequestLoggingFilter requestLoggingFilter() {
+        CommonsRequestLoggingFilter crlf = new CommonsRequestLoggingFilter();
+        crlf.setIncludeClientInfo(true);
+        crlf.setIncludeQueryString(true);
+        crlf.setIncludePayload(true);
+        return crlf;
     }
 }
