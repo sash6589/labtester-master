@@ -56,7 +56,7 @@ public class TaskFactory {
         if (problem.isRunFileTests()) {
             tasks.addFileTestsTasks(problem.getRunFileTestsUrl(), problem.getRunFileTestsCommand());
         }
-//        tasks.addEndCommonTasks();
+        tasks.addEndCommonTasks();
 
         return tasks.toTasksDAO();
     }
