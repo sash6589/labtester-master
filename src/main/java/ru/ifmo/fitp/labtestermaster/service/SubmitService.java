@@ -34,21 +34,22 @@ public class SubmitService {
         this.taskFactory = taskFactory;
     }
 
-    public SubmitReport submit(String problemName, String gitUrl) {
+    public SubmitReport submit(String user, String problemName, String gitUrl) {
         TasksDAO tasks = taskFactory.getTaskPipeline(problemName, gitUrl);
 
-        return submit(tasks, problemName);
+        return submit(user, tasks, problemName);
     }
 
-    public SubmitReport submit(SolutionDAO solutionDAO) {
+    public SubmitReport submit(String user, SolutionDAO solutionDAO) {
         TasksDAO tasks = taskFactory.getTaskPipeline(solutionDAO);
 
-        return submit(tasks, solutionDAO.getProblemName());
+        return submit(user, tasks, solutionDAO.getProblemName());
     }
 
-    private SubmitReport submit(TasksDAO tasks, String problemName) {
+    private SubmitReport submit(String user, TasksDAO tasks, String problemName) {
         SubmitReport report = makeRequest(tasks);
         report.setProblemName(problemName);
+        report.setUsername(user);
 
         asyncDBService.saveSubmitReport(report);
 

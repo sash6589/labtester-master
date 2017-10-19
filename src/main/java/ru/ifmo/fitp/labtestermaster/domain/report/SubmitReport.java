@@ -14,6 +14,9 @@ public class SubmitReport {
     private Date date;
 
     @Column(columnDefinition = "TEXT")
+    private String username;
+
+    @Column(columnDefinition = "TEXT")
     private String testStdout;
 
     @Column(columnDefinition = "TEXT")
@@ -41,8 +44,6 @@ public class SubmitReport {
     public String getTestStderr() {
         return testStderr;
     }
-
-
 
     public String getCodestyleStdout() {
         return codestyleStdout;
@@ -90,5 +91,13 @@ public class SubmitReport {
 
     public void setProblemName(String problemName) {
         this.problemName = problemName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
