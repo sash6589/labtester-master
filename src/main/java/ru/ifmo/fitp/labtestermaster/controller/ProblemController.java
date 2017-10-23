@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.ifmo.fitp.labtestermaster.domain.problem.Problem;
 import ru.ifmo.fitp.labtestermaster.repository.ProblemRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,11 +37,13 @@ public class ProblemController {
     }
 
     @GetMapping(value = "/problems")
-    public ResponseEntity<List<String>> problems() {
+    public ResponseEntity<List<Problem>> problems() {
         LOG.info("New request for getting all names of problems");
 
-        List<String> names = problemRepository.findNames();
+        Iterable<Problem> problems = problemRepository.findAll();
+        List<Problem> result = new ArrayList<>();
+        problems.forEach(result::add);
 
-        return new ResponseEntity<>(names, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

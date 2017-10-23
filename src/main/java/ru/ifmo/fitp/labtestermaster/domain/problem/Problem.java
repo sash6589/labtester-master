@@ -33,6 +33,8 @@ public class Problem {
     @Column(columnDefinition = "TEXT")
     private String runFileTestsCommand;
 
+    private String languages[];
+
     public Problem() {
 
     }
@@ -115,5 +117,13 @@ public class Problem {
 
     public void setRunFileTestsCommand(String runFileTestsCommand) {
         this.runFileTestsCommand = runFileTestsCommand;
+    }
+
+    public String[] getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(String[] languages) {
+        this.languages = languages;
     }
 }
