@@ -46,7 +46,13 @@ public class SubmitController {
 
     @ResponseStatus(value=HttpStatus.BAD_REQUEST, reason = "Failed to check solution")
     @ExceptionHandler(HttpClientErrorException.class)
-    public void badRequest() {
+    public void badRequest(HttpClientErrorException e) {
+        LOG.error(e.getMessage());
+    }
 
+    @ExceptionHandler(Exception.class)
+    public void error(Exception e) throws Exception {
+        LOG.warn(e.getMessage());
+        throw e;
     }
 }
