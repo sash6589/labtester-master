@@ -5,13 +5,16 @@ import ru.ifmo.fitp.labtestermaster.dao.task.codestyle.CheckCodestyleDAO;
 import ru.ifmo.fitp.labtestermaster.dao.task.git.GitCloneFileTestsDAO;
 import ru.ifmo.fitp.labtestermaster.dao.task.git.GitCloneSolutionDAO;
 import ru.ifmo.fitp.labtestermaster.dao.task.git.GitCloneTestsDAO;
-import ru.ifmo.fitp.labtestermaster.dao.task.language.cpp.CompileCppDAO;
 import ru.ifmo.fitp.labtestermaster.dao.task.os.*;
 import ru.ifmo.fitp.labtestermaster.dao.task.test.RunFileTestsDAO;
 import ru.ifmo.fitp.labtestermaster.dao.task.test.RunTestsDAO;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static ru.ifmo.fitp.labtestermaster.domain.task.LanguageSpecificFactory.getBuildLanguageSpecificTask;
+import static ru.ifmo.fitp.labtestermaster.domain.task.LanguageSpecificFactory.getCompileLanguageSpecificTask;
+import static ru.ifmo.fitp.labtestermaster.domain.task.LanguageSpecificFactory.getLanguageSpecificExtension;
 
 public class Tasks {
 
@@ -26,7 +29,8 @@ public class Tasks {
     }
 
     public void addBeginCommonTasksWithProgram(String program, String language) {
-        addBeginCommonTasks(new SaveSolutionDAO(program), getCompileLanguageSpecificTask(language));
+        addBeginCommonTasks(new SaveSolutionDAO(program, getLanguageSpecificExtension(language)),
+                getCompileLanguageSpecificTask(language));
     }
 
     public void addCheckCodestyleTask(String command) {
@@ -61,22 +65,5 @@ public class Tasks {
             tasks.add(languageTask);
         }
         tasks.add(new SolutionMoveToDAO());
-    }
-
-    private AbstractTaskDAO getCompileLanguageSpecificTask(String language) {
-        System.out.println(language);
-        switch (language) {
-            case "cpp":
-                return new CompileCppDAO();
-            default:
-                return null;
-        }
-    }
-
-    private AbstractTaskDAO getBuildLanguageSpecificTask(String language) {
-        switch (language) {
-            default:
-                return null;
-        }
     }
 }

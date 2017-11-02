@@ -11,14 +11,14 @@ import ru.ifmo.fitp.labtestermaster.repository.ProblemRepository;
 import java.util.function.Supplier;
 
 @Component
-public class TaskFactory {
+public class TaskPipelineFactory {
 
-    private static final Logger LOG = Logger.getLogger(TaskFactory.class);
+    private static final Logger LOG = Logger.getLogger(TaskPipelineFactory.class);
 
     private final ProblemRepository problemRepository;
 
     @Autowired
-    public TaskFactory(ProblemRepository problemRepository) {
+    public TaskPipelineFactory(ProblemRepository problemRepository) {
         this.problemRepository = problemRepository;
     }
 

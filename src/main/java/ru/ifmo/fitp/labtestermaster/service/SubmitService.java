@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import ru.ifmo.fitp.labtestermaster.dao.solution.SolutionDAO;
 import ru.ifmo.fitp.labtestermaster.dao.task.*;
 import ru.ifmo.fitp.labtestermaster.domain.report.SubmitReport;
-import ru.ifmo.fitp.labtestermaster.domain.task.TaskFactory;
+import ru.ifmo.fitp.labtestermaster.domain.task.TaskPipelineFactory;
 
 @Service
 public class SubmitService {
@@ -24,24 +24,24 @@ public class SubmitService {
 
     private final AsyncDBService asyncDBService;
     private final RestTemplate restTemplate;
-    private final TaskFactory taskFactory;
+    private final TaskPipelineFactory taskPipelineFactory;
 
     @Autowired
     public SubmitService(AsyncDBService asyncDBService, RestTemplateBuilder restTemplateBuilder,
-                         TaskFactory taskFactory) {
+                         TaskPipelineFactory taskPipelineFactory) {
         this.asyncDBService = asyncDBService;
         this.restTemplate = restTemplateBuilder.build();
-        this.taskFactory = taskFactory;
+        this.taskPipelineFactory = taskPipelineFactory;
     }
 
     public SubmitReport submit(String username, String problemName, String language, String gitUrl) {
-        TasksDAO tasks = taskFactory.getTaskPipeline(problemName, language, gitUrl);
+        TasksDAO tasks = taskPipelineFactory.getTaskPipeline(problemName, language, gitUrl);
 
         return submit(username, tasks, problemName);
     }
 
     public SubmitReport submit(String username, String language, SolutionDAO solutionDAO) {
-        TasksDAO tasks = taskFactory.getTaskPipeline(solutionDAO, language);
+        TasksDAO tasks = taskPipelineFactory.getTaskPipeline(solutionDAO, language);
 
         return submit(username, tasks, solutionDAO.getProblemName());
     }
