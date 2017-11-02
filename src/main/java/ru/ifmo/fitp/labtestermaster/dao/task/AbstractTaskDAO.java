@@ -2,6 +2,16 @@ package ru.ifmo.fitp.labtestermaster.dao.task;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import ru.ifmo.fitp.labtestermaster.dao.task.codestyle.CheckCodestyleDAO;
+import ru.ifmo.fitp.labtestermaster.dao.task.git.GitCloneDAO;
+import ru.ifmo.fitp.labtestermaster.dao.task.git.GitCloneFileTestsDAO;
+import ru.ifmo.fitp.labtestermaster.dao.task.git.GitCloneSolutionDAO;
+import ru.ifmo.fitp.labtestermaster.dao.task.git.GitCloneTestsDAO;
+import ru.ifmo.fitp.labtestermaster.dao.task.language.cpp.CompileCppDAO;
+import ru.ifmo.fitp.labtestermaster.dao.task.os.*;
+import ru.ifmo.fitp.labtestermaster.dao.task.test.RunFileTestsDAO;
+import ru.ifmo.fitp.labtestermaster.dao.task.test.RunTestsDAO;
+
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
@@ -17,7 +27,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = RunTestsDAO.class, name = "runTests"),
         @JsonSubTypes.Type(value = RunFileTestsDAO.class, name = "runFileTests"),
         @JsonSubTypes.Type(value = CheckCodestyleDAO.class, name = "checkCodestyle"),
-        @JsonSubTypes.Type(value = SaveSolutionDAO.class, name = "saveSolution")
+        @JsonSubTypes.Type(value = SaveSolutionDAO.class, name = "saveSolution"),
+        @JsonSubTypes.Type(value = CompileCppDAO.class, name = "compileCppDAO")
 })
 public abstract class AbstractTaskDAO {
 

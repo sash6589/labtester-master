@@ -1,4 +1,4 @@
-package ru.ifmo.fitp.labtestermaster.dao.task;
+package ru.ifmo.fitp.labtestermaster.dao.task.git;
 
 public class GitCloneFileTestsDAO extends GitCloneDAO {
 

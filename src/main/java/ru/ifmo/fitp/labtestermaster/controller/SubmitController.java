@@ -25,21 +25,24 @@ public class SubmitController {
     @GetMapping(value = "/submit")
     public ResponseEntity<SubmitReport> submit(@RequestParam String username,
                                                @RequestParam String problemName,
+                                               @RequestParam String language,
                                                @RequestParam String gitUrl) {
-        LOG.info(String.format("New problem %s submit url request from username %s", problemName, username));
+        LOG.info(String.format("Submit request for problem %s on %s language from user %s ",
+                problemName, language, username));
 
-        SubmitReport submitReport = submitService.submit(username, problemName, gitUrl);
+        SubmitReport submitReport = submitService.submit(username, problemName, language, gitUrl);
 
         return new ResponseEntity<>(submitReport, HttpStatus.OK);
     }
 
     @PostMapping(value = "/submit")
     public ResponseEntity<SubmitReport> submit(@RequestParam String username,
+                                               @RequestParam String language,
                                                @RequestBody SolutionDAO solutionDAO) {
-        LOG.info(String.format("New problem %s submit program request from username %s",
-                solutionDAO.getProblemName(), username));
+        LOG.info(String.format("Submit request for problem %s on %s language from user %s ",
+                solutionDAO.getProblemName(), language, username));
 
-        SubmitReport submitReport = submitService.submit(username, solutionDAO);
+        SubmitReport submitReport = submitService.submit(username, language, solutionDAO);
 
         return new ResponseEntity<>(submitReport, HttpStatus.OK);
     }

@@ -1,4 +1,6 @@
-package ru.ifmo.fitp.labtestermaster.dao.task;
+package ru.ifmo.fitp.labtestermaster.dao.task.test;
+
+import ru.ifmo.fitp.labtestermaster.dao.task.CommandTaskDAO;
 
 public class RunTestsDAO extends CommandTaskDAO {
 

@@ -1,4 +1,6 @@
-package ru.ifmo.fitp.labtestermaster.dao.task;
+package ru.ifmo.fitp.labtestermaster.dao.task.git;
+
+import ru.ifmo.fitp.labtestermaster.dao.task.AbstractTaskDAO;
 
 public class GitCloneDAO extends AbstractTaskDAO {
 

@@ -34,14 +34,14 @@ public class SubmitService {
         this.taskFactory = taskFactory;
     }
 
-    public SubmitReport submit(String username, String problemName, String gitUrl) {
-        TasksDAO tasks = taskFactory.getTaskPipeline(problemName, gitUrl);
+    public SubmitReport submit(String username, String problemName, String language, String gitUrl) {
+        TasksDAO tasks = taskFactory.getTaskPipeline(problemName, language, gitUrl);
 
         return submit(username, tasks, problemName);
     }
 
-    public SubmitReport submit(String username, SolutionDAO solutionDAO) {
-        TasksDAO tasks = taskFactory.getTaskPipeline(solutionDAO);
+    public SubmitReport submit(String username, String language, SolutionDAO solutionDAO) {
+        TasksDAO tasks = taskFactory.getTaskPipeline(solutionDAO, language);
 
         return submit(username, tasks, solutionDAO.getProblemName());
     }

@@ -22,19 +22,19 @@ public class TaskFactory {
         this.problemRepository = problemRepository;
     }
 
-    public TasksDAO getTaskPipeline(String problemName, String gitUrl) {
+    public TasksDAO getTaskPipeline(String problemName, String language, String gitUrl) {
         Tasks tasks = new Tasks();
         Supplier<Void> func = () -> {
-            tasks.addBeginCommonTasksWithGit(gitUrl);
+            tasks.addBeginCommonTasksWithGit(gitUrl, language);
             return null;
         };
         return getTaskPipeline(problemName, func, tasks);
     }
 
-    public TasksDAO getTaskPipeline(SolutionDAO solutionDAO) {
+    public TasksDAO getTaskPipeline(SolutionDAO solutionDAO, String language) {
         Tasks tasks = new Tasks();
         Supplier<Void> func = () -> {
-            tasks.addBeginCommonTasksWithProgram(solutionDAO.getProgram());
+            tasks.addBeginCommonTasksWithProgram(solutionDAO.getProgram(), language);
             return null;
         };
         return getTaskPipeline(solutionDAO.getProblemName(), func, tasks);
