@@ -30,9 +30,6 @@ public class Problem {
     @Column(columnDefinition = "TEXT")
     private String runFileTestsUrl;
 
-    @Column(columnDefinition = "TEXT")
-    private String runFileTestsCommand;
-
     private String languages[];
 
     public Problem() {
@@ -109,14 +106,6 @@ public class Problem {
 
     public void setRunTestsCommand(String runTestsCommand) {
         this.runTestsCommand = runTestsCommand;
-    }
-
-    public String getRunFileTestsCommand() {
-        return runFileTestsCommand;
-    }
-
-    public void setRunFileTestsCommand(String runFileTestsCommand) {
-        this.runFileTestsCommand = runFileTestsCommand;
     }
 
     public String[] getLanguages() {

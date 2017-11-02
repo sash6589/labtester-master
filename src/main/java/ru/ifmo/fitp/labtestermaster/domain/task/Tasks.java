@@ -12,9 +12,7 @@ import ru.ifmo.fitp.labtestermaster.dao.task.test.RunTestsDAO;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.ifmo.fitp.labtestermaster.domain.task.LanguageSpecificFactory.getBuildLanguageSpecificTask;
-import static ru.ifmo.fitp.labtestermaster.domain.task.LanguageSpecificFactory.getCompileLanguageSpecificTask;
-import static ru.ifmo.fitp.labtestermaster.domain.task.LanguageSpecificFactory.getLanguageSpecificExtension;
+import static ru.ifmo.fitp.labtestermaster.domain.task.LanguageSpecificFactory.*;
 
 public class Tasks {
 
@@ -25,12 +23,12 @@ public class Tasks {
     }
 
     public void addBeginCommonTasksWithGit(String gitUrl, String language) {
-        addBeginCommonTasks(new GitCloneSolutionDAO(gitUrl), getBuildLanguageSpecificTask(language));
+        addBeginCommonTasks(new GitCloneSolutionDAO(gitUrl), getBuildTask(language));
     }
 
     public void addBeginCommonTasksWithProgram(String program, String language) {
-        addBeginCommonTasks(new SaveSolutionDAO(program, getLanguageSpecificExtension(language)),
-                getCompileLanguageSpecificTask(language));
+        addBeginCommonTasks(new SaveSolutionDAO(program, getExtension(language)),
+                getCompileTask(language));
     }
 
     public void addCheckCodestyleTask(String command) {
@@ -43,10 +41,10 @@ public class Tasks {
         tasks.add(new RunTestsDAO(command));
     }
 
-    public void addFileTestsTasks(String gitUrl, String command) {
+    public void addFileTestsTasks(String gitUrl, String language) {
         tasks.add(new GitCloneFileTestsDAO(gitUrl));
         tasks.add(new FileTestsMoveToDAO());
-        tasks.add(new RunFileTestsDAO(command));
+        tasks.add(new RunFileTestsDAO(getRunFileTestsCommand(language)));
     }
 
     public void addEndCommonTasks() {
