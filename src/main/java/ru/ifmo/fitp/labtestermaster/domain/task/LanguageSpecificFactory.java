@@ -1,13 +1,13 @@
 package ru.ifmo.fitp.labtestermaster.domain.task;
 
 import ru.ifmo.fitp.labtestermaster.dao.task.AbstractTaskDAO;
-import ru.ifmo.fitp.labtestermaster.dao.task.language.cpp.CompileCppDAO;
+import ru.ifmo.fitp.labtestermaster.dao.task.language.cpp.BuildCppDAO;
 
 public class LanguageSpecificFactory {
     public static AbstractTaskDAO getCompileTask(String language) {
         switch (language) {
             case "cpp":
-                return new CompileCppDAO();
+                return new BuildCppDAO("g++ main.cpp -o main");
             default:
                 return null;
         }
@@ -15,6 +15,8 @@ public class LanguageSpecificFactory {
 
     public static AbstractTaskDAO getBuildTask(String language) {
         switch (language) {
+            case "cpp":
+                return new BuildCppDAO("bash", "-c", "cmake ./ && make");
             default:
                 return null;
         }

@@ -1,16 +1,23 @@
 package ru.ifmo.fitp.labtestermaster.dao.task;
 
+import java.util.Arrays;
+import java.util.List;
+
 public abstract class CommandTaskDAO extends AbstractTaskDAO {
-    private String command;
+    private List<String> command;
 
     public CommandTaskDAO(String command) {
-        this.command = command;
+        this.command = Arrays.asList(command.split(" "));
+    }
+
+    public CommandTaskDAO(String... command) {
+        this.command = Arrays.asList(command);
     }
 
     public CommandTaskDAO() {
     }
 
-    public String getCommand() {
+    public List<String> getCommand() {
         return command;
     }
 }
