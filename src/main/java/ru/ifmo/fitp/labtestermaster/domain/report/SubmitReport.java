@@ -17,6 +17,9 @@ public class SubmitReport {
     private String username;
 
     @Column(columnDefinition = "TEXT")
+    private String fullname;
+
+    @Column(columnDefinition = "TEXT")
     private String testStdout;
 
     @Column(columnDefinition = "TEXT")
@@ -99,5 +102,13 @@ public class SubmitReport {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 }
