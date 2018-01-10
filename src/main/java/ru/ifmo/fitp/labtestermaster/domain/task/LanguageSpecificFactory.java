@@ -9,7 +9,7 @@ public class LanguageSpecificFactory {
             case "cpp":
                 return new BuildCppDAO("g++ main.cpp -o main");
             case "c":
-                return new BuildCppDAO("gcc main.c -o main");
+                return new BuildCppDAO("gcc main.c -o main -lm");
             default:
                 return null;
         }
