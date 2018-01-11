@@ -8,7 +8,7 @@ import java.util.Date;
 public class SubmitReport {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date date;
