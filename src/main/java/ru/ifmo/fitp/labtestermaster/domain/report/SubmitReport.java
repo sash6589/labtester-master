@@ -36,6 +36,9 @@ public class SubmitReport {
 
     private String problemName;
 
+    @Column(columnDefinition = "TEXT")
+    private String solution;
+
     public SubmitReport() {
 
     }
@@ -110,5 +113,13 @@ public class SubmitReport {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public String getSolution() {
+        return solution;
+    }
+
+    public void setSolution(String solution) {
+        this.solution = solution;
     }
 }
