@@ -8,6 +8,8 @@ public class LanguageSpecificFactory {
         switch (language) {
             case "cpp":
                 return new BuildCppDAO("g++ main.cpp -o main");
+            case "c":
+                return new BuildCppDAO("gcc main.c -o main -lm");
             default:
                 return null;
         }
@@ -26,6 +28,8 @@ public class LanguageSpecificFactory {
         switch (language) {
             case "cpp":
                 return "cpp";
+            case "c":
+                return "c";
             case "python":
                 return "py";
         }
@@ -36,6 +40,8 @@ public class LanguageSpecificFactory {
     public static String getRunFileTestsCommand(String language) {
         switch (language) {
             case "cpp":
+                return "./main";
+            case "c":
                 return "./main";
             case "python":
                 return "python main.py";

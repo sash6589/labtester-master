@@ -8,7 +8,7 @@ import java.util.Date;
 public class SubmitReport {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date date;
@@ -35,6 +35,9 @@ public class SubmitReport {
     private String fileTestsResult;
 
     private String problemName;
+
+    @Column(columnDefinition = "TEXT")
+    private String solution;
 
     public SubmitReport() {
 
@@ -110,5 +113,13 @@ public class SubmitReport {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public String getSolution() {
+        return solution;
+    }
+
+    public void setSolution(String solution) {
+        this.solution = solution;
     }
 }
