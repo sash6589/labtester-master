@@ -7,7 +7,7 @@ import ru.ifmo.fitp.labtestermaster.dao.task.git.GitCloneDAO;
 import ru.ifmo.fitp.labtestermaster.dao.task.git.GitCloneFileTestsDAO;
 import ru.ifmo.fitp.labtestermaster.dao.task.git.GitCloneSolutionDAO;
 import ru.ifmo.fitp.labtestermaster.dao.task.git.GitCloneTestsDAO;
-import ru.ifmo.fitp.labtestermaster.dao.task.language.cpp.BuildCppDAO;
+import ru.ifmo.fitp.labtestermaster.dao.task.language.BuildDAO;
 import ru.ifmo.fitp.labtestermaster.dao.task.os.*;
 import ru.ifmo.fitp.labtestermaster.dao.task.test.RunFileTestsDAO;
 import ru.ifmo.fitp.labtestermaster.dao.task.test.RunTestsDAO;
@@ -28,7 +28,7 @@ import ru.ifmo.fitp.labtestermaster.dao.task.test.RunTestsDAO;
         @JsonSubTypes.Type(value = RunFileTestsDAO.class, name = "runFileTests"),
         @JsonSubTypes.Type(value = CheckCodestyleDAO.class, name = "checkCodestyle"),
         @JsonSubTypes.Type(value = SaveSolutionDAO.class, name = "saveSolution"),
-        @JsonSubTypes.Type(value = BuildCppDAO.class, name = "buildCppDAO")
+        @JsonSubTypes.Type(value = BuildDAO.class, name = "buildDAO")
 })
 public abstract class AbstractTaskDAO {
 

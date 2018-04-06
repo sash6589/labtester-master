@@ -1,30 +1,32 @@
 package ru.ifmo.fitp.labtestermaster.domain.task;
 
 import ru.ifmo.fitp.labtestermaster.dao.task.AbstractTaskDAO;
-import ru.ifmo.fitp.labtestermaster.dao.task.language.cpp.BuildCppDAO;
+import ru.ifmo.fitp.labtestermaster.dao.task.language.BuildDAO;
 
-public class LanguageSpecificFactory {
-    public static AbstractTaskDAO getCompileTask(String language) {
+class LanguageSpecificFactory {
+    static AbstractTaskDAO getCompileTask(String language) {
         switch (language) {
             case "cpp":
-                return new BuildCppDAO("g++ main.cpp -o main");
+                return new BuildDAO("g++ Main.cpp -o Main");
             case "c":
-                return new BuildCppDAO("gcc main.c -o main -lm");
+                return new BuildDAO("gcc Main.c -o Main -lm");
+            case "java":
+                return new BuildDAO("javac Main.java");
             default:
                 return null;
         }
     }
 
-    public static AbstractTaskDAO getBuildTask(String language) {
+    static AbstractTaskDAO getBuildTask(String language) {
         switch (language) {
             case "cpp":
-                return new BuildCppDAO("bash", "-c", "cmake ./ && make");
+                return new BuildDAO("bash", "-c", "cmake ./ && make");
             default:
                 return null;
         }
     }
 
-    public static String getExtension(String language) {
+    static String getExtension(String language) {
         switch (language) {
             case "cpp":
                 return "cpp";
@@ -32,19 +34,23 @@ public class LanguageSpecificFactory {
                 return "c";
             case "python":
                 return "py";
+            case "java":
+                return "java";
         }
 
         throw new IllegalArgumentException("Unknown language");
     }
 
-    public static String getRunFileTestsCommand(String language) {
+    static String getRunFileTestsCommand(String language) {
         switch (language) {
             case "cpp":
-                return "./main";
+                return "./Main";
             case "c":
-                return "./main";
+                return "./Main";
             case "python":
-                return "python main.py";
+                return "python Main.py";
+            case "java":
+                return "java Main";
         }
 
         throw new IllegalArgumentException("Unknown language");
