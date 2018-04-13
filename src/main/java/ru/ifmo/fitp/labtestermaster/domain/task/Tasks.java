@@ -62,6 +62,6 @@ public class Tasks {
         if (languageTask != null) {
             tasks.add(languageTask);
         }
-        tasks.add(new SolutionMoveToDAO());
+//        tasks.add(new SolutionMoveToDAO());
     }
 }
